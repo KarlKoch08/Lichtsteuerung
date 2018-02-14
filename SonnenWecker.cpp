@@ -54,6 +54,10 @@ void SonnenWecker::shutdown()
 
 void SonnenWecker::run()
 {
+	targetColor = color1;
+	redValue = 0;
+	blueValue = 0;
+	greenValue = 0;
 	while(redValue != endColor[0] || greenValue != endColor[1] || blueValue != endColor[2])
 	{
 //		cout << "red: " << redValue << "green: " << greenValue << "blue: " << blueValue << "\r\n";
@@ -91,7 +95,7 @@ void SonnenWecker::run()
 //			cout << ((targetColor[2] - blueValue)/abs(targetColor[2] - blueValue)) << "\r\n";
 //			cout << "-----\r\n";
 			updateStrip();
-			gpioSleep(0,10,30000);
+			gpioSleep(0,0,30000);
 		}
 //		cout << "targetColor: " << targetColor[0] << " " << targetColor[1] << " " << targetColor[2] << "\r\n";
 		if(targetColor == color1 && redValue == targetColor[0] && greenValue == targetColor[1] && blueValue == targetColor[2])
@@ -111,7 +115,7 @@ void SonnenWecker::run()
 			targetColor = endColor;
 		}
 	}
-	gpioSleep(0,1800,0);
+	gpioSleep(0,10,0);
 	shutdown();
 	getTimeOfDay();
 }
@@ -140,9 +144,9 @@ void SonnenWecker::getTimeOfDay()
 	struct tm *timeinfo;
 	timeinfo = localtime(&rawtime);
 	cout << asctime(timeinfo) << "\r\n";
-	if(timeinfo->tm_hour == 6)
+	if(timeinfo->tm_hour == 20)
 	{
-		if(timeinfo->tm_min > 30)
+		if(timeinfo->tm_min > 00)
 		{
 			run();
 		}
