@@ -37,6 +37,15 @@ void SonnenWecker::initialize()
 		gpioSetMode(GPIOred, PI_OUTPUT);
 		gpioSetMode(GPIOgreen, PI_OUTPUT);
 		gpioSetMode(GPIOblue, PI_OUTPUT);
+		gpioWrite(GPIOred, 1);
+		gpioSleep(0,3,0);
+		gpioWrite(GPIOred, 0);
+		gpioWrite(GPIOgreen, 1);
+		gpioSleep(0,3,0);
+		gpioWrite(GPIOgreen, 0);
+		gpioWrite(GPIOblue, 1);
+		gpioSleep(0,3,0);
+		gpioWrite(GPIOblue, 0);
 		getTimeOfDay();
 	}
 	else
